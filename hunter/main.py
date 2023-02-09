@@ -2,6 +2,7 @@ import argparse
 import copy
 import logging
 import sys
+sys.path.append(r"/Users/leiyanfei/code/hunter")
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
@@ -104,7 +105,9 @@ class Hunter:
         change_points = analyzed_series.change_points_by_time
         report = Report(series, change_points)
         produced_report = report.produce_report(test.name, report_type)
-        print(produced_report)
+        for p in change_points:
+            print(p)
+        #print(produced_report)
         return analyzed_series
 
     def __get_grafana(self) -> Grafana:
@@ -243,7 +246,7 @@ class Hunter:
         baseline_selector.branch = None
         baseline_selector.since_version = None
         baseline_selector.since_commit = None
-        baseline_selector.since_time = since_time - timedelta(days=30)
+        baseline_selector.since_time = None
         baseline_series = importer.fetch_data(test, baseline_selector)
 
         if since_version:
@@ -253,6 +256,7 @@ class Hunter:
             baseline_index = max(baseline_index)
         elif since_commit:
             baseline_index = baseline_series.find_by_attribute("commit", since_commit)
+            print("since commit", baseline_index)
             if not baseline_index:
                 raise HunterError(f"No runs of test {test.name} with commit {since_commit}")
             baseline_index = max(baseline_index)
@@ -265,7 +269,7 @@ class Hunter:
             target_series = importer.fetch_data(test, selector).analyze()
         else:
             target_series = baseline_series
-
+        print(baseline_index, baseline_series.len())
         cmp = compare(baseline_series, baseline_index, target_series, target_series.len())
         regressions = []
         for metric_name, stats in cmp.stats.items():

@@ -117,6 +117,8 @@ class Series:
         return result
 
     def find_first_not_earlier_than(self, time: datetime) -> Optional[int]:
+        if time is None:
+            return None
         timestamp = time.timestamp()
         for i, t in enumerate(self.time):
             if t >= timestamp:
@@ -219,7 +221,6 @@ class AnalyzedSeries:
             if cp.index <= index:
                 break
             end = cp.index
-
         return begin, end
 
     def test_name(self) -> str:

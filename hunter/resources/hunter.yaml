@@ -1,17 +1,17 @@
 # External systems connectors configuration:
 graphite:
-  url: ${GRAPHITE_ADDRESS}
+  url: ""
 
 grafana:
-  url: ${GRAFANA_ADDRESS}
-  user: ${GRAFANA_USER}
-  password: ${GRAFANA_PASSWORD}
+  url: ""
+  user: ""
+  password: ""
 
 slack:
-  token: ${SLACK_BOT_TOKEN}
+  token: "xseddwdw"
 
 # Templates define common bits shared between test definitions:
-templates:
+# templates:
 
 # Define your tests here:
 tests:
@@ -19,12 +19,56 @@ tests:
     type: csv
     file: tests/resources/sample.csv
     time_column: time
-    metrics: [metric1, metric2]
+    metrics: [metric2]
     attributes: [commit]
     csv_options:
       delimiter: ','
       quote_char: "'"
-
+  checkpointSingleInput.UNALIGNED_1_java8:
+    type: csv
+    file: tests/resources/checkpointSingleInput.UNALIGNED_11.csv
+    time_column: time
+    metrics: [metric1]
+    attributes: [commit]
+    csv_options:
+      delimiter: ','
+      quote_char: "'"
+  checkpointSingleInput.UNALIGNED_1_java11:
+    type: csv
+    file: tests/resources/checkpointSingleInput.UNALIGNED_16.csv
+    time_column: time
+    metrics: [metric1]
+    attributes: [commit]
+    csv_options:
+      delimiter: ','
+      quote_char: "'"
+  serializerRow_java8:
+    type: csv
+    file: tests/resources/serializerRow1.csv
+    time_column: time
+    metrics: [metric1]
+    attributes: [commit]
+    csv_options:
+      delimiter: ','
+      quote_char: "'"
+  serializerRow_java11:
+    type: csv
+    file: tests/resources/serializerRow6.csv
+    time_column: time
+    metrics: [metric1]
+    attributes: [commit]
+    csv_options:
+      delimiter: ','
+      quote_char: "'"
+  arrayKeyBy_java8:
+    type: csv
+    file: tests/resources/arrayKeyBy1.csv
+    time_column: time
+    metrics: [metric1]
+    attributes: [commit]
+    csv_options:
+      delimiter: ','
+      quote_char: "'"
 
 test_groups:
   local:

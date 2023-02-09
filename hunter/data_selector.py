@@ -26,10 +26,10 @@ class DataSelector:
         self.last_n_points = sys.maxsize
         self.since_commit = None
         self.since_version = None
-        self.since_time = datetime.now(tz=pytz.UTC) - timedelta(days=365)
+        self.since_time = None
         self.until_commit = None
         self.until_version = None
-        self.until_time = datetime.now(tz=pytz.UTC)
+        self.until_time = None
 
     def get_selection_description(self):
         attributes = "\n".join(

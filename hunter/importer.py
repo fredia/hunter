@@ -200,23 +200,22 @@ class CsvImporter(Importer):
             return defined_metrics
 
     def fetch_data(self, test_conf: TestConfig, selector: DataSelector = DataSelector()) -> Series:
-
         if not isinstance(test_conf, CsvTestConfig):
             raise ValueError("Expected CsvTestConfig")
 
         if selector.branch:
             raise ValueError("CSV tests don't support branching yet")
-
         since_time = selector.since_time
         until_time = selector.until_time
         file = Path(test_conf.file)
+        print("file", file)
 
-        if since_time.timestamp() > until_time.timestamp():
-            raise DataImportError(
-                f"Invalid time range: ["
-                f"{format_timestamp(int(since_time.timestamp()))}, "
-                f"{format_timestamp(int(until_time.timestamp()))}]"
-            )
+        # if since_time.timestamp() > until_time.timestamp():
+        #     raise DataImportError(
+        #         f"Invalid time range: ["
+        #         f"{format_timestamp(int(since_time.timestamp()))}, "
+        #         f"{format_timestamp(int(until_time.timestamp()))}]"
+        #     )
 
         try:
             with open(file, newline="") as csv_file:
